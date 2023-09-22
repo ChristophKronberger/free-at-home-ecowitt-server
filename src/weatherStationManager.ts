@@ -10,6 +10,28 @@ export class WeatherStationManager {
     private constructor(stationName :string) {
         freeAtHome.createWeatherStationDevice("WS1", stationName)
             .then(e => this.station = e);
+
+        if (process.platform === "win32") {
+            var rl = require("readline").createInterface({
+                input: process.stdin,
+                output: process.stdout
+            });
+            rl.on("SIGINT", function () {
+                process.emit("SIGINT" as any);
+            });
+        }
+        process.on('SIGINT', async () => {
+            console.log("SIGINT received, cleaning up...")
+            await freeAtHome.markAllDevicesAsUnresponsive();
+            console.log("clean up finished, exiting procces")
+            process.exit();
+        });
+        process.on('SIGTERM', async () => {
+            console.log("SIGTERM received, cleaning up...")
+            await freeAtHome.markAllDevicesAsUnresponsive();
+            console.log("clean up finished, exiting procces")
+            process.exit();
+        });
     }
 
     public static getInstance(name: string){

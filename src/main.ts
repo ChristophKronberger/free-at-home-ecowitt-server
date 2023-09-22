@@ -21,6 +21,7 @@ async function main() {
     console.log(`Server is running on port ${PORT}`)
   });
 
+
   // const weatherStationChannels = await freeAtHome.createWeatherStationDevice("ES", "WeatherStation");
 
 }
@@ -30,6 +31,7 @@ main();
 
 //#################################################################################
 import {AddOn} from '@busch-jaeger/free-at-home';
+import {ConfigurationEntry} from "@busch-jaeger/free-at-home/lib/scriptingApi";
 
 
 const metaData = AddOn.readMetaData();
@@ -37,7 +39,7 @@ const metaData = AddOn.readMetaData();
 const addOn = new AddOn.AddOn(metaData.id);
 
 addOn.on("configurationChanged", (configuration: AddOn.Configuration) => {
-  console.log(configuration);
+
 });
 
 addOn.connectToConfiguration();

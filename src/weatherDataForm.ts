@@ -3,23 +3,18 @@ export
 class WeatherDataForm {
     passkey!: string;
     stationtype!: string;
-    date!: string;
     tempinf!: number;
     humidityin!: number;
     baromrelin!: number;
     baromabsin!: number;
     tempf!: number;
     humidity!: number;
-    winddir!: number;
+    temp1f!: number;
+    humidity1!: number;
+    temp2f!: number;
+    humidity2!: number;
     windspeedmph!: number;
-    windgustmph!: number;
     rainratein!: number;
-    eventrainin!: number;
-    dailyrainin!: number;
-    weeklyrainin!: number;
-    monthlyrainin!: number;
-    yearlyrainin!: number;
-    totalrainin!: number;
     solarradiation!: number;
     uv!: number;
     wh65batt!: number;

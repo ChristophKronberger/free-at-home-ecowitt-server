@@ -3,6 +3,7 @@ import {WeatherData} from "./weatherData";
 import { Request, Response } from 'express';
 import {WeatherStationManager} from "./weatherStationManager";
 import {WeatherFreeAtHomeBridge} from "./weatherFreeAtHomeBridge";
+import {TemperatureDeviceManager} from "./temperatureDeviceManager";
 
 export const getDataAndPrintRequestBody = (req: Request, res: Response) => {
     const value = req.params.value;
@@ -16,7 +17,8 @@ export const getDataAndPrintRequestBody = (req: Request, res: Response) => {
     console.log('---------------');
     res.status(202).send();
     const weatherStationChannels = WeatherStationManager.getInstance(body.stationtype).get();
-    WeatherFreeAtHomeBridge.update(data,weatherStationChannels);
+    const channel1 = TemperatureDeviceManager.getInstance();
+    WeatherFreeAtHomeBridge.update(data,weatherStationChannels, channel1);
 };
 
 
