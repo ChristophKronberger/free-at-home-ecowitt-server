@@ -1,33 +1,36 @@
 import { FreeAtHome } from '@busch-jaeger/free-at-home';
+import express, {Express} from 'express'
+import routes from "./routes";
 
-const freeAtHome = new FreeAtHome();
-freeAtHome.activateSignalHandling();
+import bodyParser from "body-parser";
+// const freeAtHome = new FreeAtHome();
+// freeAtHome.activateSignalHandling();
+const app  = express();
 
+const PORT = process.env.PORT ||8080
 async function main() {
-  const virtualSwitch = await freeAtHome.createSwitchingActuatorDevice("123switch", "Virtual Switch");
-  virtualSwitch.setAutoKeepAlive(true);
-  virtualSwitch.isAutoConfirm = true;
-  virtualSwitch.on('isOnChanged', (value: boolean) => {
-    console.log("switch state is:", (value) ? "on" : "off");
+
+// Use body-parser middleware
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+
+// Use your routes
+  app.use(routes);
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`)
   });
 
-  const virtualDimming = await freeAtHome.createDimActuatorDevice("123Dim", "Virtual Dimming");
-  virtualDimming.setAutoKeepAlive(true);
-  virtualDimming.isAutoConfirm = true;
-  virtualDimming.on('isOnChanged', (value: boolean) => {
-    console.log("dimming state is:", (value) ? "on" : "off");
-  });
-  virtualDimming.on("absoluteValueChanged", (value: number) => {
-    console.log("dimming value is:", value );
-  });
+  // const weatherStationChannels = await freeAtHome.createWeatherStationDevice("ES", "WeatherStation");
+
 }
 
 main();
-
 // Get notified about changes in the configuration of the add on
-//#################################################################################
 
+//#################################################################################
 import {AddOn} from '@busch-jaeger/free-at-home';
+
 
 const metaData = AddOn.readMetaData();
 
