@@ -7,7 +7,7 @@ import bodyParser from "body-parser";
 // freeAtHome.activateSignalHandling();
 const app  = express();
 
-const PORT = process.env.PORT ||8080
+const PORT = process.env.PORT ||5180
 async function main() {
 
 // Use body-parser middleware

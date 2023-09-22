@@ -7,9 +7,7 @@ router.get('/', (req: Request, res: Response) => {
     res.status(501);
 });
 
-router.post('/api/webhook/:tt3', (req: Request, res: Response) => {
-    const value = req.params.tt3;
-    console.log(value);
+router.post('/api/weather', (req: Request, res: Response) => {
     getDataAndPrintRequestBody(req,res);
 });
 
