@@ -4,7 +4,8 @@ import { Request, Response } from 'express';
 import {WeatherStationManager} from "./weatherStationManager";
 import {WeatherFreeAtHomeBridge} from "./weatherFreeAtHomeBridge";
 
-export const getDataAndPrintRequestBody = (req: Request, res: Response) => {
+
+export const getDataAndPrintRequestBody = async (req: Request, res: Response) => {
     const value = req.params.value;
     const contentType = req.header('Content-Type');
     const body = new WeatherDataForm(req.body);
@@ -15,8 +16,11 @@ export const getDataAndPrintRequestBody = (req: Request, res: Response) => {
     console.log(data);
     console.log('---------------');
     res.status(202).send();
-    const weatherStationChannels = WeatherStationManager.getInstance(body.stationtype).get();
-    WeatherFreeAtHomeBridge.update(data,weatherStationChannels);
+    const weatherStationChannels = await WeatherStationManager.getInstance(body.stationtype);
+    if(weatherStationChannels) {
+        WeatherFreeAtHomeBridge.update(data, weatherStationChannels.get());
+    }
+
 };
 
 

@@ -39,7 +39,9 @@ const metaData = AddOn.readMetaData();
 const addOn = new AddOn.AddOn(metaData.id);
 
 addOn.on("configurationChanged", (configuration: AddOn.Configuration) => {
-
+  console.log("CONFIG CHANGED")
+  console.log("CONFIG CHANGED")
+  console.log("CONFIG CHANGED")
 });
 
 addOn.connectToConfiguration();

@@ -8,7 +8,7 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.post('/api/weather', (req: Request, res: Response) => {
-    getDataAndPrintRequestBody(req,res);
+    getDataAndPrintRequestBody(req, res).then(r => res.status(200));
 });
 
 router.put('/api/data/:id', (req: Request, res: Response) => {
