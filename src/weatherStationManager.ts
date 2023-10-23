@@ -10,6 +10,7 @@ async function createWeatherStationChannel(stationName: string) {
 }
 export class WeatherStationManager {
     private static instance: WeatherStationManager | null;
+    private static first = true;
 
     private station: WeatherStationChannels
     static async create(stationName: string) {
@@ -24,6 +25,11 @@ export class WeatherStationManager {
     }
     private constructor(station: WeatherStationChannels) {
         this.station = station;
+        this.setListener();
+    }
+
+    public setListener(){
+        if(!WeatherStationManager.first) return;
         if (process.platform === "win32") {
             var rl = require("readline").createInterface({
                 input: process.stdin,
@@ -45,8 +51,8 @@ export class WeatherStationManager {
             console.log("clean up finished, exiting procces")
             process.exit();
         });
+        WeatherStationManager.first = false;
     }
-
     public static async getInstance(name: string) {
         WeatherStationManager.instance = await WeatherStationManager.create(name);
         return WeatherStationManager.instance;
