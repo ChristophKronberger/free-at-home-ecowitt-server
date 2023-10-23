@@ -8,6 +8,7 @@ export class WeatherFreeAtHomeBridge {
         station.wind.setWindSpeed(data.windSpeed);
         station.temperature.setTemperature(data.temperatureOut);
         station.rain.setIsRaining(data.rainRaite > 0);
+        station.brightness.setBrightnessLevel(data.brightness);
         channel1.getH1().setHumidity(data.humidityChannel1.toString());
         channel1.getT1().setTemperature(data.tempChannel1.toString());
     }

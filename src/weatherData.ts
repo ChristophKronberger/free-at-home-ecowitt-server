@@ -14,6 +14,7 @@ export class WeatherData {
     tempChannel2: number;
     humidityChannel1: number;
     humidityChannel2: number;
+    brightness: number;
 
     constructor(form: WeatherDataForm) {
         // this.timestamp = this.parseDate(form.date);
@@ -23,13 +24,18 @@ export class WeatherData {
         this.pressureAbsIn = this.inHgToHpa(form.baromabsin);
         this.temperatureOut = this.fahreinheitToCelsius(form.tempf);
         this.humidityOut = form.humidity;
-        this.windSpeed = this.mphToKmH(form.windspeedmph);
+        this.windSpeed = this.mphToMS(form.windspeedmph);
         this.rainRaite = form.rainratein;
         this.tempChannel1 = this.fahreinheitToCelsius(form.temp1f);
         this.tempChannel2 = this.fahreinheitToCelsius(form.temp2f);
         this.humidityChannel1 = form.humidity1;
         this.humidityChannel2 = form.humidity2;
+        this.brightness = this.wattPerSqmToLux(form.solarradiation);
 
+    }
+
+    private wattPerSqmToLux(watts: number): number{
+        return watts * 126.7;
     }
 
     private parseDate(dateString: string): Date {
@@ -44,8 +50,8 @@ export class WeatherData {
         return (f - 32) * 5 / 9;
     }
 
-    private mphToKmH(mph: number): number {
-        return mph * 1.609344;
+    private mphToMS(mph: number): number {
+        return mph / 2.23693;
     }
 
     private inHgToHpa(inHg: number): number {
