@@ -1,11 +1,11 @@
 {
-  "name": "REST API for recieving POST requests from a weather station, using ECOWITT protocoll.",
-  "version": "0.0.1",
+  "name": "REST API for receiving POST requests from a weather station, using ECOWITT protocoll.",
+  "version": "0.0.2",
   "id": "at.kronberger.freeathome.ecowitt-server",
   "license": "EUPL",
-  "description": "Example for free@home addons",
+  "description": "Basic REST Endpoint with next.js for parsing WeatherData",
   "url": "https://www.busch-jaeger.de",
-  "author": "Busch Jaeger",
+  "author": "Christoph Kronberger",
   "type": "app",
   "entryPoint": "build/main.js",
   "parameters": {
@@ -16,9 +16,9 @@
           "name": "Username",
           "type": "string"
         },
-        "apiKey": {
-          "name": "API Key",
-          "type": "string"
+        "password": {
+          "name": "Password",
+          "type": "password"
         },
         "ignoreReachability": {
           "name": "Ignore reachability",
