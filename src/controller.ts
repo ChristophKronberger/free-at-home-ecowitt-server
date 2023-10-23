@@ -18,7 +18,7 @@ export const getDataAndPrintRequestBody = (req: Request, res: Response) => {
     res.status(202).send();
     const weatherStationChannels = WeatherStationManager.getInstance(body.stationtype).get();
     const channel1 = TemperatureDeviceManager.getInstance();
-    WeatherFreeAtHomeBridge.update(data,weatherStationChannels, channel1);
+    WeatherFreeAtHomeBridge.update(data,weatherStationChannels);
 };
 
 
