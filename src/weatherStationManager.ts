@@ -8,6 +8,9 @@ export class WeatherStationManager {
     private station: WeatherStationChannels;
 
     private constructor(stationName :string) {
+        console.log("--------------------")
+        console.log("CREATE NEW STATION");
+        console.log("--------------------")
         freeAtHome.createWeatherStationDevice("WS1", stationName)
             .then(e => this.station = e);
 
