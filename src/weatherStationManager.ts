@@ -5,13 +5,9 @@ const freeAtHome = new FreeAtHome();
 freeAtHome.activateSignalHandling();
 
 async function createWeatherStationChannel(stationName: string) {
+    freeAtHome.activateSignalHandling()
     return await freeAtHome.createWeatherStationDevice("WS1", stationName)
 }
-
-async function createWeatherStationManager(stationName: string){
-    return
-}
-
 export class WeatherStationManager {
     private static instance: WeatherStationManager | null;
 
@@ -52,9 +48,7 @@ export class WeatherStationManager {
     }
 
     public static async getInstance(name: string) {
-        if (!WeatherStationManager.instance) {
-            WeatherStationManager.instance = await WeatherStationManager.create(name);
-        }
+        WeatherStationManager.instance = await WeatherStationManager.create(name);
         return WeatherStationManager.instance;
     }
 

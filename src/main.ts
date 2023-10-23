@@ -3,8 +3,8 @@ import express, {Express} from 'express'
 import routes from "./routes";
 
 import bodyParser from "body-parser";
-// const freeAtHome = new FreeAtHome();
-// freeAtHome.activateSignalHandling();
+const freeAtHome = new FreeAtHome();
+freeAtHome.activateSignalHandling();
 const app  = express();
 
 const PORT = process.env.PORT ||5180
@@ -19,6 +19,7 @@ async function main() {
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
+    freeAtHome.setEnableLogging(true);
   });
 
 
