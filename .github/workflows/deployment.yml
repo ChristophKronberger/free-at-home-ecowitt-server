@@ -21,10 +21,18 @@ jobs:
         with:
           name: addon
           path: "*.tar"
+      - name: Extract branch name
+        id: extract_version
+        run: |
+          BRANCH_NAME=${GITHUB_REF##*/}
+          VERSION=${BRANCH_NAME##*/}
+          echo "Full branch name: $BRANCH_NAME"
+          echo "Version: $VERSION"
+          echo "::set-output name=version::$VERSION"
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{GITHUB_REF}}
+          automatic_release_tag: "${{ steps.extract_version.outputs.version }}"
           prerelease: false
           title: "Release"
           files: |
