@@ -1,0 +1,32 @@
+on:
+  push:
+    branches:
+      - 'release/**'
+jobs:
+  deployment:
+    name: "Build production deployment"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run buildProd --if-present
+      - run: npm run pack --if-present
+      - uses: actions/upload-artifact@v3
+        with:
+          name: addon
+          path: "*.tar"
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${GITHUB_REF##*/}"
+          prerelease: false
+          title: "Release"
+          files: |
+            *.tar
+          
