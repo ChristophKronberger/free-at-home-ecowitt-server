@@ -24,9 +24,10 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${GITHUB_REF##*/}"
+          automatic_release_tag: ${{GITHUB_REF}}
           prerelease: false
           title: "Release"
           files: |
+            LICENCE.md
             *.tar
           
