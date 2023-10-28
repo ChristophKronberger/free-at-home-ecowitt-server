@@ -1,29 +1,9 @@
 import { FreeAtHome } from '@busch-jaeger/free-at-home';
-import express, {Express} from 'express'
-import routes from "./routes";
 
-import bodyParser from "body-parser";
 const freeAtHome = new FreeAtHome();
 freeAtHome.activateSignalHandling();
-const app  = express();
 
-const PORT = process.env.PORT ||5180
 async function main() {
-
-// Use body-parser middleware
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
-
-// Use your routes
-  app.use(routes);
-
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
-    freeAtHome.setEnableLogging(true);
-  });
-
-
-  // const weatherStationChannels = await freeAtHome.createWeatherStationDevice("ES", "WeatherStation");
 
 }
 
@@ -33,6 +13,7 @@ main();
 //#################################################################################
 import {AddOn} from '@busch-jaeger/free-at-home';
 import {ConfigurationEntry} from "@busch-jaeger/free-at-home/lib/scriptingApi";
+import {httpServer} from "./httpServer";
 
 
 const metaData = AddOn.readMetaData();
@@ -41,8 +22,10 @@ const addOn = new AddOn.AddOn(metaData.id);
 
 addOn.on("configurationChanged", (configuration: AddOn.Configuration) => {
   console.log("CONFIG CHANGED")
-  console.log("CONFIG CHANGED")
-  console.log("CONFIG CHANGED")
+  console.debug(configuration);
+  // @ts-ignore
+  var port = configuration["default"]?.items?.["port"] ??  5180;
+  httpServer.startServerOnPort(port)
 });
 
 addOn.connectToConfiguration();
