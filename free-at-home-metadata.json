@@ -4,7 +4,7 @@
   "id": "at.kronberger.freeathome.ecowitt-server",
   "license": "EUPL",
   "description": "Basic REST Endpoint with express, receiving POST requests from a weather station, using ecowitt protocol.",
-  "url": "https://www.busch-jaeger.de",
+  "url": "https://github.com/ChristophKronberger/free-at-home-ecowitt-server",
   "author": "Christoph Kronberger",
   "type": "app",
   "entryPoint": "build/main.js",
@@ -19,10 +19,6 @@
         "password": {
           "name": "Password",
           "type": "password"
-        },
-        "ignoreReachability": {
-          "name": "Ignore reachability",
-          "type": "boolean"
         },
         "port": {
           "name": "Port",
