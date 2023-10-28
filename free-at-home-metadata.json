@@ -3,7 +3,7 @@
   "version": "0.0.4",
   "id": "at.kronberger.freeathome.ecowitt-server",
   "license": "EUPL",
-  "description": "Basic REST Endpoint with express, receiving POST requests from a weather station, using ecowitt protocol.",
+  "description": "Basic REST Endpoint with express, receiving POST requests from a weather station, using ecowitt protocol.\n If you like this addon, feel free to buy me a coffee: https://www.buymeacoffee.com/ckronberg",
   "url": "https://github.com/ChristophKronberger/free-at-home-ecowitt-server",
   "author": "Christoph Kronberger",
   "type": "app",
