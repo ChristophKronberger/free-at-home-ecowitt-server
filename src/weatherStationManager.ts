@@ -1,37 +1,33 @@
 
 import {FreeAtHome, WeatherStationChannels} from "@busch-jaeger/free-at-home";
-import {create} from "domain";
 const freeAtHome = new FreeAtHome();
 freeAtHome.activateSignalHandling();
 
 async function createWeatherStationChannel(stationName: string) {
-    freeAtHome.activateSignalHandling()
     return await freeAtHome.createWeatherStationDevice("WS1", stationName)
 }
 export class WeatherStationManager {
     private static instance: WeatherStationManager | null;
-    private static first = true;
 
-    private station: WeatherStationChannels
+    private readonly station: WeatherStationChannels
     static async create(stationName: string) {
         console.log("Create object")
         try {
             const t = await createWeatherStationChannel(stationName)
+            t.rain.setAutoKeepAlive(true);
+            t.wind.setAutoKeepAlive(true);
+            t.brightness.setAutoKeepAlive(true);
+            t.temperature.setAutoKeepAlive(true);
             return new WeatherStationManager(t)
         } catch (err) {
             this.instance = null
-            throw Error("geht nix")
+            throw Error("Error at weatherStationManager, crateWeatherStationChannel");
         }
     }
     private constructor(station: WeatherStationChannels) {
         this.station = station;
-        this.setListener();
-    }
-
-    public setListener(){
-        if(!WeatherStationManager.first) return;
         if (process.platform === "win32") {
-            var rl = require("readline").createInterface({
+            const rl = require("readline").createInterface({
                 input: process.stdin,
                 output: process.stdout
             });
@@ -51,10 +47,12 @@ export class WeatherStationManager {
             console.log("clean up finished, exiting procces")
             process.exit();
         });
-        WeatherStationManager.first = false;
     }
+
     public static async getInstance(name: string) {
-        WeatherStationManager.instance = await WeatherStationManager.create(name);
+        if (!WeatherStationManager.instance) {
+            WeatherStationManager.instance = await WeatherStationManager.create(name);
+        }
         return WeatherStationManager.instance;
     }
 

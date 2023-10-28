@@ -19,6 +19,8 @@ export const getDataAndPrintRequestBody = async (req: Request, res: Response) =>
     const weatherStationChannels = await WeatherStationManager.getInstance(body.stationtype);
     if(weatherStationChannels) {
         WeatherFreeAtHomeBridge.update(data, weatherStationChannels.get());
+    }else {
+        console.error("Virtual Weather Station not initialized: %s", weatherStationChannels);
     }
 
 };
