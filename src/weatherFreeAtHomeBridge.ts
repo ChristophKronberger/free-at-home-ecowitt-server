@@ -8,10 +8,5 @@ export class WeatherFreeAtHomeBridge {
         station.temperature.setTemperature(data.temperatureOut);
         station.rain.setIsRaining(data.rainRaite > 0);
         station.brightness.setBrightnessLevel(data.brightness);
-        console.log("Setting Keep alive")
-        station.wind.triggerKeepAlive().then();
-        station.temperature.triggerKeepAlive().then();
-        station.rain.triggerKeepAlive().then();
-        station.brightness.triggerKeepAlive().then();
     }
 }

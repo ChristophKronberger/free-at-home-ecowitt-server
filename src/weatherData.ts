@@ -25,7 +25,7 @@ export class WeatherData {
         this.temperatureOut = this.fahreinheitToCelsius(form.tempf);
         this.humidityOut = form.humidity;
         this.windSpeed = this.mphToMS(form.windspeedmph);
-        this.rainRaite = form.rainratein;
+        this.rainRaite = this.inchPerHourToMmPerHour(form.rainratein);
         this.tempChannel1 = this.fahreinheitToCelsius(form.temp1f);
         this.tempChannel2 = this.fahreinheitToCelsius(form.temp2f);
         this.humidityChannel1 = form.humidity1;
@@ -46,6 +46,9 @@ export class WeatherData {
         return new Date(year, month - 1, day, hour, minute, second);
     }
 
+    private inchPerHourToMmPerHour(rain: number){
+        return rain*25.4;
+    }
     private fahreinheitToCelsius(f: number): number {
         return (f - 32) * 5 / 9;
     }
